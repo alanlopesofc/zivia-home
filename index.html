@@ -289,7 +289,8 @@ footer a:hover { color: var(--z-gold-light); }
 /* Celular */
 @media (max-width: 900px) {
   body { font-size: 17px; font-weight: 400; }
-  .topo { grid-template-columns: auto 1fr; }
+  /* No celular o menu fica no topo da página e sai com a rolagem (pedido do Alan). */
+  .topo { position: absolute; grid-template-columns: auto 1fr; }
   .topo nav { display: none; }
   .marca { justify-self: start; }
   .topo .entrar { font-size: .7rem; }
@@ -606,7 +607,7 @@ const comoImagem = v => {
   img.src = v.currentSrc || v.src;
 };
 const tocar = v => { const t = v.play(); t && t.catch(e => { if (e && e.name === 'NotAllowedError') comoImagem(v); }); };
-if (/[?&]semvideo/.test(location.search)) addEventListener('load', () => videos.forEach(comoImagem));
+if (/[?&]semvideo/.test(location.search)) { const trocar = () => videos.forEach(comoImagem); document.readyState === 'complete' ? trocar() : addEventListener('load', trocar); }
 const io = new IntersectionObserver(es => es.forEach(e => {
   const v = e.target;
   if (e.isIntersecting) { v.dataset.visivel = '1'; tocar(v); }
