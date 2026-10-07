@@ -1,0 +1,636 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>ZIVIA Feel Again</title>
+<meta name="description" content="ZIVIA desenha imersões de presença para casais, amigos e famílias. Luxo, hoje, não é excesso. É tempo, silêncio e olhar nos olhos. Feel Again.">
+<script>
+  // A página sempre abre no topo: sem restaurar a rolagem anterior e sem pular para âncora antiga.
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  if (location.hash) history.replaceState(null, '', location.pathname + location.search);
+  window.scrollTo(0, 0);
+</script>
+<link rel="preload" as="image" href="assets/final.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+/* Tokens do Design System ZIVIA v1.0 (mesmos da página ZÍVIA A Dois) */
+:root {
+  --secao: clamp(112px, 16vh, 176px);
+  --z-dark: #262526;
+  --z-dark2: #1a1919;
+  --z-dark3: #0f0f0f;
+  --z-light: #FFFFFF;
+  --z-muted: #F2F2F2;
+  --z-gold: #BF923F;
+  --z-gold-light: #F2C063;
+  --z-gold-warm: #F2B263;
+  --z-gold-deep: #8B6520;
+
+  --z-serif: 'Cormorant Garamond', Georgia, serif;
+  --z-sans: 'Plus Jakarta Sans', system-ui, sans-serif;
+
+  --texto-escuro: rgba(255,255,255,.78);
+  --texto-claro: rgba(38,37,38,.8);
+  --linha-clara: rgba(38,37,38,.14);
+  --linha-escura: rgba(255,255,255,.1);
+
+  --z-transition: .3s ease;
+  --lento: cubic-bezier(.22,.61,.36,1);
+  --gutter: clamp(20px, 5vw, 64px);
+  --container: 1280px;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  background: var(--z-dark2); color: var(--z-light);
+  font: 300 17px/1.75 var(--z-sans);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+img, video { display: block; max-width: 100%; }
+a { color: inherit; }
+ul { list-style: none; }
+:focus-visible { outline: 2px solid var(--z-gold-light); outline-offset: 4px; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* Tipografia: serifa sempre em 400 */
+h1, h2, h3, .serif { font-family: var(--z-serif); font-weight: 400; }
+h1 { font-size: clamp(46px, 6.4vw, 104px); line-height: 1.02; letter-spacing: -.01em; }
+h2 { font-size: clamp(36px, 4.6vw, 68px); line-height: 1.1; }
+h3 { font-size: clamp(28px, 2.6vw, 38px); line-height: 1.2; }
+h1 em, h2 em, h3 em { font-style: italic; color: var(--z-gold-light); }
+.claro h2 em, .claro h3 em { color: var(--z-gold); }
+p { max-width: 34em; }
+.lede { font: 400 clamp(21px, 1.8vw, 27px)/1.55 var(--z-serif); color: var(--texto-escuro); }
+
+.zlabel {
+  display: inline-flex; align-items: center; gap: .85rem;
+  font: 700 .74rem/1 var(--z-sans); letter-spacing: .32em; text-transform: uppercase;
+  color: var(--z-gold); margin-bottom: 1.8rem;
+}
+.zlabel::before { content: ""; width: 1.5rem; height: 1px; background: currentColor; opacity: .8; }
+
+.miolo { max-width: var(--container); margin: 0 auto; padding: 0 var(--gutter); }
+
+/* Topo */
+.topo {
+  position: fixed; inset: 0 0 auto; z-index: 30;
+  display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
+  padding: 1.4rem var(--gutter);
+  transition: background .6s var(--lento), padding .6s var(--lento);
+}
+.topo.scrolled { background: rgba(26,25,25,.9); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); padding-block: 1rem; }
+.topo nav { display: flex; gap: 2.2rem; }
+.topo nav a, .topo .entrar {
+  font: 500 .74rem/1 var(--z-sans); letter-spacing: .24em; text-transform: uppercase; text-decoration: none;
+  color: rgba(255,255,255,.72); transition: color var(--z-transition);
+}
+.topo nav a:hover { color: var(--z-gold-light); }
+.marca { justify-self: center; }
+.marca img { height: 24px; width: auto; }
+.topo .entrar { justify-self: end; color: var(--z-gold-light); border-bottom: 1px solid rgba(242,192,99,.4); padding-bottom: .4rem; }
+.topo .entrar:hover { border-color: var(--z-gold-light); }
+
+/* Botões do DS */
+.btn {
+  display: inline-block; padding: 1.15rem 2.4rem; border-radius: 2px;
+  background: var(--z-gold); color: var(--z-dark); text-decoration: none;
+  font: 700 .78rem/1 var(--z-sans); letter-spacing: .22em; text-transform: uppercase;
+  transition: background var(--z-transition), transform var(--z-transition), box-shadow var(--z-transition);
+}
+.btn:hover { background: var(--z-gold-light); transform: translateY(-1px); box-shadow: 0 18px 40px -16px rgba(191,146,63,.55); }
+.btn.outline { background: transparent; color: var(--z-light); border: 1px solid rgba(242,192,99,.5); font-weight: 500; }
+.btn.outline:hover { background: var(--z-gold-light); color: var(--z-dark); border-color: var(--z-gold-light); box-shadow: none; }
+.link-fino {
+  display: inline-flex; align-items: center; gap: .8rem; text-decoration: none;
+  font: 500 .78rem/1 var(--z-sans); letter-spacing: .22em; text-transform: uppercase; color: var(--z-gold-light);
+}
+.link-fino::after { content: ""; width: 2.2rem; height: 1px; background: currentColor; transition: width .5s var(--lento); }
+.link-fino:hover::after { width: 3.4rem; }
+
+.ruido { position: relative; }
+.ruido::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 1; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+}
+
+/* 1. Hero: a caixa sobre a água escura */
+.hero { position: relative; height: 100vh; height: 100svh; min-height: 620px; overflow: hidden; background: var(--z-dark3); }
+.hero video, .hero .poster { position: absolute; top: 0; left: 14%; width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; }
+.hero .vinheta {
+  position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(15,15,15,.9) 0%, rgba(15,15,15,.55) 38%, transparent 66%),
+    linear-gradient(0deg, rgba(15,15,15,.85) 0%, transparent 34%);
+}
+.hero .texto {
+  position: absolute; z-index: 2; left: 0; right: 0; bottom: clamp(56px, 12vh, 120px);
+  max-width: var(--container); margin: 0 auto; padding: 0 var(--gutter);
+}
+.hero h1 { max-width: 9.5em; }
+.hero .lede { margin-top: 1.8rem; max-width: 25em; }
+.hero .acoes { margin-top: 2.6rem; display: flex; align-items: center; gap: 2rem; flex-wrap: wrap; }
+.hero .rolar {
+  position: absolute; z-index: 2; right: var(--gutter); bottom: clamp(56px, 12vh, 120px);
+  writing-mode: vertical-rl; font: 500 .68rem/1 var(--z-sans); letter-spacing: .4em; text-transform: uppercase; color: rgba(255,255,255,.5);
+  display: flex; align-items: center; gap: 1rem;
+}
+.hero .rolar::after { content: ""; width: 1px; height: 64px; background: linear-gradient(var(--z-gold), transparent); animation: gota 2.8s var(--lento) infinite; transform-origin: top; }
+@keyframes gota { 0% { transform: scaleY(0); } 50% { transform: scaleY(1); } 100% { transform: scaleY(1); opacity: 0; } }
+
+/* 2. Manifesto: as linhas acendem com a rolagem */
+.manifesto { position: relative; background: var(--z-dark2); padding: var(--secao) 0; }
+.manifesto .miolo { display: grid; grid-template-columns: 1fr 1.6fr; gap: 4rem; align-items: start; }
+.manifesto .lado { position: sticky; top: 28vh; }
+.manifesto .lado p { color: var(--texto-escuro); margin-top: 1.4rem; font-size: 15px; }
+.versos { font: 400 clamp(30px, 3.5vw, 52px)/1.28 var(--z-serif); }
+.versos p { max-width: none; color: var(--z-light); }
+.versos p + p { margin-top: .5em; }
+.versos .pausa { margin-top: 1.4em; }
+.versos em { font-style: italic; color: var(--z-gold-light); }
+
+/* 3. Tese: a única virada para o claro */
+.amanhecer { height: clamp(72px, 12vh, 140px); background: linear-gradient(var(--z-dark2), var(--z-muted)); }
+.anoitecer { height: clamp(72px, 12vh, 140px); background: linear-gradient(var(--z-muted), var(--z-dark2)); }
+.claro { background: var(--z-muted); color: var(--z-dark); }
+.claro p { color: var(--texto-claro); }
+.tese { padding: calc(var(--secao) * .6) 0 var(--secao); text-align: center; }
+.tese h2 { font-size: clamp(40px, 5.6vw, 88px); max-width: 15em; margin: 0 auto; line-height: 1.08; }
+.tese .nomes { margin: 4.5rem auto 0; display: flex; justify-content: center; flex-wrap: wrap; gap: 0; max-width: 980px; border-top: 1px solid var(--linha-clara); }
+.tese .nomes li { flex: 1 1 0; min-width: 220px; padding: 2rem 1.5rem 0; font: italic 400 clamp(22px, 1.9vw, 28px)/1.3 var(--z-serif); color: var(--z-dark); }
+.tese .nomes li + li { border-left: 1px solid var(--linha-clara); }
+.tese .nomes small { display: block; margin-bottom: .8rem; font: 700 .68rem/1 var(--z-sans); letter-spacing: .3em; text-transform: uppercase; font-style: normal; color: var(--z-gold); }
+.tese .depois { margin: 3.5rem auto 0; max-width: 32em; }
+
+/* 4. O objeto: a caixa abre com a rolagem */
+.objeto { position: relative; height: 340vh; background: var(--z-dark3); }
+.objeto .palco { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; }
+.objeto .quadro { position: absolute; inset: 0; }
+.objeto .quadro img { width: 100%; height: 100%; object-fit: cover; }
+.objeto .q2, .objeto .q3 { opacity: 0; }
+.objeto .q3 img { object-position: 50% 40%; }
+.objeto .palco::before {
+  content: ""; position: absolute; inset: 0; z-index: 2; pointer-events: none;
+  background: linear-gradient(0deg, rgba(15,15,15,.92) 0%, rgba(15,15,15,.25) 42%, transparent 60%);
+}
+.objeto .legendas { position: absolute; z-index: 3; left: 0; right: 0; bottom: clamp(48px, 10vh, 104px); max-width: var(--container); margin: 0 auto; padding: 0 var(--gutter); }
+.objeto .legenda { position: absolute; left: var(--gutter); right: var(--gutter); bottom: 0; opacity: 0; }
+.objeto .legenda.l1 { opacity: 1; }
+.objeto .legenda h2 { max-width: 13em; }
+.objeto .legenda p { margin-top: 1.2rem; color: var(--texto-escuro); }
+.objeto .progresso { position: absolute; z-index: 3; right: var(--gutter); top: 50%; transform: translateY(-50%); display: grid; gap: .9rem; }
+.objeto .progresso i { display: block; width: 1px; height: 36px; background: rgba(255,255,255,.18); position: relative; overflow: hidden; }
+.objeto .progresso i::after { content: ""; position: absolute; inset: 0; background: var(--z-gold-light); transform: scaleY(var(--p, 0)); transform-origin: top; }
+
+/* 5. As imersões */
+.imersoes { background: var(--z-dark2); padding: var(--secao) 0 0; }
+.imersoes .intro { display: grid; grid-template-columns: 1.3fr 1fr; gap: 4rem; align-items: end; padding-bottom: clamp(64px, 9vh, 112px); }
+.imersoes .intro p { color: var(--texto-escuro); }
+.imersao {
+  position: sticky; top: 0; min-height: 100vh; min-height: 100svh;
+  display: grid; grid-template-columns: 1.08fr 1fr; background: var(--z-dark2);
+  border-top: 1px solid var(--linha-escura);
+}
+.imersao:nth-of-type(2) { background: #1d1c1c; }
+.imersao:nth-of-type(3) { background: #201f1f; }
+.imersao::after { content: ""; position: absolute; inset: 0; z-index: 3; pointer-events: none; background: #0f0f0f; opacity: var(--sombra, 0); }
+.imersao .foto { position: relative; overflow: hidden; }
+.imersao .foto img {
+  position: absolute; inset: -6% 0; width: 100%; height: 112%; object-fit: cover;
+  filter: saturate(.62) contrast(1.06) brightness(.82) sepia(.18);
+}
+.imersao .foto::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(90deg, transparent 55%, rgba(26,25,25,.85)), radial-gradient(120% 90% at 40% 40%, transparent 50%, rgba(15,15,15,.55));
+}
+.imersao .corpo { display: flex; flex-direction: column; justify-content: center; padding: clamp(48px, 8vh, 96px) clamp(28px, 6vw, 96px); }
+.imersao .num { font: italic 400 1.15rem/1 var(--z-serif); color: var(--z-gold); margin-bottom: 1.6rem; display: flex; gap: .9rem; align-items: center; }
+.imersao .num::after { content: ""; width: 3rem; height: 1px; background: rgba(191,146,63,.5); }
+.imersao h3 { font-size: clamp(40px, 4.4vw, 68px); line-height: 1.05; }
+.imersao .para-quem { margin-top: .9rem; font: 500 .76rem/1.4 var(--z-sans); letter-spacing: .24em; text-transform: uppercase; color: rgba(255,255,255,.5); }
+.imersao .frase { margin-top: 2.2rem; font: 400 clamp(22px, 1.9vw, 28px)/1.45 var(--z-serif); color: var(--z-light); max-width: 20em; }
+.imersao .frase em { color: var(--z-gold-light); }
+.imersao .desc { margin-top: 1.2rem; color: var(--texto-escuro); max-width: 30em; }
+.imersao .rodape { margin-top: 2.6rem; padding-top: 1.6rem; border-top: 1px solid var(--linha-escura); display: flex; align-items: center; justify-content: space-between; gap: 1.6rem; flex-wrap: wrap; }
+.imersao .preco { font-size: 14px; color: rgba(255,255,255,.6); line-height: 1.5; }
+.imersao .preco strong { display: block; font: 400 1.5rem/1.2 var(--z-serif); color: var(--z-light); }
+.imersao .acoes { display: flex; align-items: center; gap: 1.8rem; flex-wrap: wrap; }
+
+/* 6. Ritual: o que é, o que não é */
+.ritual { position: relative; background: var(--z-dark3); padding: var(--secao) 0; overflow: hidden; }
+.ritual video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .32; filter: saturate(.7); }
+.ritual::before { content: ""; position: absolute; inset: 0; z-index: 1; background: radial-gradient(70% 80% at 50% 50%, rgba(15,15,15,.35), rgba(15,15,15,.92)); }
+.ritual .miolo { position: relative; z-index: 2; text-align: center; }
+.ritual .nao { display: grid; gap: .3rem; }
+.ritual .nao li { font: 400 clamp(28px, 3.2vw, 48px)/1.25 var(--z-serif); color: rgba(255,255,255,.32); text-decoration: line-through; text-decoration-thickness: 1px; text-decoration-color: rgba(191,146,63,.6); }
+.ritual h2 { margin-top: 2.6rem; font-size: clamp(48px, 6.4vw, 104px); }
+.ritual .passos { margin: clamp(72px, 10vh, 112px) auto 0; display: grid; grid-template-columns: repeat(3, 1fr); max-width: 1080px; text-align: left; }
+.ritual .passo { padding: 0 2rem; border-left: 1px solid var(--linha-escura); }
+.ritual .passo span { font: italic 400 1.1rem/1 var(--z-serif); color: var(--z-gold); }
+.ritual .passo h3 { margin: 1rem 0 .8rem; font-size: clamp(26px, 2.2vw, 32px); }
+.ritual .passo p { color: var(--texto-escuro); font-size: 16px; }
+
+/* 7. Feito à mão, feito para poucos */
+.feito { background: var(--z-dark2); padding: var(--secao) 0; }
+.feito .miolo { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(48px, 7vw, 112px); align-items: center; }
+.feito figure { position: relative; aspect-ratio: 4/5; overflow: hidden; border-radius: 2px; }
+.feito figure img { width: 100%; height: 100%; object-fit: cover; }
+.feito blockquote { margin-top: 2.6rem; padding-left: 1.6rem; border-left: 3px solid var(--z-gold); font: italic 400 clamp(22px, 1.8vw, 26px)/1.5 var(--z-serif); color: var(--z-light); max-width: 24em; }
+.feito .fatos { margin-top: 3rem; display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--linha-escura); }
+.feito .fatos li { padding: 1.4rem 0; border-bottom: 1px solid var(--linha-escura); }
+.feito .fatos li:nth-child(odd) { padding-right: 1.4rem; }
+.feito .fatos li:nth-child(even) { padding-left: 1.4rem; border-left: 1px solid var(--linha-escura); }
+.feito .fatos strong { display: block; font: 400 1.5rem/1.2 var(--z-serif); color: var(--z-gold-light); }
+.feito .fatos span { font-size: 14.5px; color: var(--texto-escuro); }
+
+/* 8. Perguntas */
+.perguntas { background: var(--z-dark2); padding: 0 0 var(--secao); }
+.perguntas .miolo { display: grid; grid-template-columns: 1fr 1.4fr; gap: 4rem; border-top: 1px solid var(--linha-escura); padding-top: var(--secao); }
+details { border-bottom: 1px solid var(--linha-escura); }
+details:first-child { border-top: 1px solid var(--linha-escura); }
+summary {
+  list-style: none; cursor: pointer; padding: 1.5rem 2.5rem 1.5rem 0; position: relative;
+  font: 400 clamp(21px, 1.7vw, 25px)/1.35 var(--z-serif);
+}
+summary::-webkit-details-marker { display: none; }
+summary::after { content: "+"; position: absolute; right: .3rem; top: 50%; transform: translateY(-50%); font: 300 1.5rem/1 var(--z-sans); color: var(--z-gold); transition: transform .4s var(--lento); }
+details[open] summary::after { transform: translateY(-50%) rotate(45deg); }
+details p { padding: 0 0 1.6rem; color: var(--texto-escuro); }
+
+/* 9. Fechamento */
+.final { position: relative; min-height: 100vh; min-height: 100svh; display: grid; place-items: center; text-align: center; overflow: hidden; background: var(--z-dark3); }
+.final img.fundo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .38; }
+.final::before { content: ""; position: absolute; inset: 0; z-index: 1; background: radial-gradient(60% 60% at 50% 50%, rgba(15,15,15,.3), rgba(15,15,15,.94)); }
+.final .conteudo { position: relative; z-index: 2; padding: var(--secao) var(--gutter); }
+.final h2 { font-size: clamp(56px, 8vw, 128px); line-height: 1; }
+.final p { margin: 1.8rem auto 0; color: var(--texto-escuro); }
+.final .acoes { margin-top: 3rem; display: flex; justify-content: center; gap: 1.2rem; flex-wrap: wrap; }
+.final .assinatura { width: min(180px, 40vw); margin: 4.5rem auto 1rem; opacity: .9; }
+footer {
+  background: var(--z-dark3); border-top: 1px solid var(--linha-escura);
+  padding: 2rem var(--gutter); display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+  font-size: 13px; color: rgba(255,255,255,.5);
+}
+footer a { text-decoration: none; }
+footer a:hover { color: var(--z-gold-light); }
+
+/* Revelação lenta (só com JS e sem "Reduzir movimento") */
+.js .surge { opacity: 0; }
+
+/* Celular */
+@media (max-width: 900px) {
+  body { font-size: 17px; font-weight: 400; }
+  .topo { grid-template-columns: auto 1fr; }
+  .topo nav { display: none; }
+  .marca { justify-self: start; }
+  .topo .entrar { font-size: .7rem; }
+  .hero video, .hero .poster { left: 0; height: 66%; object-position: 58% 50%; }
+  .hero .vinheta { background: linear-gradient(0deg, rgba(15,15,15,.95) 0%, rgba(15,15,15,.6) 48%, rgba(15,15,15,.15) 75%); }
+  .hero .rolar { display: none; }
+  .hero h1 { font-size: clamp(42px, 11vw, 60px); }
+  .hero .acoes { gap: 1.4rem; }
+  .manifesto .miolo, .imersoes .intro, .feito .miolo, .perguntas .miolo { grid-template-columns: 1fr; gap: 2.4rem; }
+  .manifesto .lado { position: static; }
+  .versos { font-size: clamp(27px, 7.4vw, 36px); }
+  .tese .nomes li { min-width: 100%; padding: 1.4rem 0; }
+  .tese .nomes li + li { border-left: 0; border-top: 1px solid var(--linha-clara); }
+  .objeto { height: 300vh; }
+  .objeto .progresso { display: none; }
+  .imersao { position: relative; grid-template-columns: 1fr; grid-template-rows: 42vh auto; grid-template-rows: 42svh auto; }
+  .imersao .foto::after { background: linear-gradient(0deg, rgba(26,25,25,1) 0%, transparent 45%); }
+  .imersao .corpo { padding: 0 var(--gutter) 56px; justify-content: flex-start; }
+  .imersao h3 { font-size: clamp(38px, 10vw, 52px); }
+  .imersao .frase { margin-top: 1.4rem; }
+  .imersao .desc { display: none; }
+  .imersao .rodape { margin-top: 1.8rem; }
+  .ritual .passos { grid-template-columns: 1fr; gap: 2.4rem; }
+  .ritual .passo { padding: 0 0 0 1.4rem; }
+  .feito .fatos { grid-template-columns: 1fr; }
+  .feito .fatos li:nth-child(n) { padding: 1.2rem 0; border-left: 0; }
+  .zlabel { font-size: .72rem; }
+  .btn { font-size: .8rem; padding: 1.15rem 1.6rem; white-space: nowrap; }
+}
+</style>
+</head>
+<body>
+<script>document.documentElement.classList.add('js'); document.body.classList.add('js');</script>
+
+<header class="topo">
+  <nav aria-label="Seções">
+    <a href="#manifesto">A marca</a>
+    <a href="#imersoes">Imersões</a>
+    <a href="#ritual">O ritual</a>
+  </nav>
+  <a class="marca" href="#topo" aria-label="ZIVIA, início"><img src="assets/logo-zivia-palavra.png" alt="ZIVIA" width="890" height="225"></a>
+  <a class="entrar" href="#imersoes">Escolher imersão</a>
+</header>
+
+<main id="topo">
+
+  <!-- 1. Hero: a caixa repousa sobre a água escura. Nada grita. -->
+  <section class="hero ruido" aria-labelledby="hero-t">
+    <img class="poster" src="assets/final.jpg" alt="" aria-hidden="true">
+    <video src="assets/final.mp4" poster="assets/final.jpg" muted playsinline webkit-playsinline loop autoplay preload="auto" disablepictureinpicture aria-hidden="true"></video>
+    <div class="vinheta"></div>
+    <div class="texto">
+      <span class="zlabel h-in">Design de conexões humanas</span>
+      <h1 id="hero-t" class="h-in">Luxo, hoje, não é excesso. <em>É presença.</em></h1>
+      <p class="lede h-in">Criamos imersões para pessoas que ainda se amam, mas esqueceram como se encontrar. Uma caixa, uma noite, o mundo em silêncio.</p>
+      <div class="acoes h-in">
+        <a class="btn" href="#imersoes">Conhecer as imersões</a>
+        <a class="link-fino" href="#manifesto">Ler o manifesto</a>
+      </div>
+    </div>
+    <span class="rolar" aria-hidden="true">Feel again</span>
+  </section>
+
+  <!-- 2. Manifesto oficial, em fragmentos que acendem -->
+  <section class="manifesto" id="manifesto" aria-labelledby="man-t">
+    <div class="miolo">
+      <div class="lado">
+        <span class="zlabel">Manifesto</span>
+        <h2 id="man-t" class="sr-only">Manifesto ZIVIA</h2>
+        <p>Nós começamos a reparar nos encontros que aconteciam sem encontro. A ZIVIA nasceu daí.</p>
+      </div>
+      <div class="versos">
+        <p>O mundo ficou barulhento demais.</p>
+        <p>Estamos juntos, mas distantes.</p>
+        <p>Conectados, mas ausentes.</p>
+        <p class="pausa">O tempo virou agenda.</p>
+        <p>O afeto virou hábito.</p>
+        <p>O encontro virou exceção.</p>
+        <p class="pausa">Não criamos produtos.</p>
+        <p>Criamos <em>pausas conscientes.</em></p>
+        <p>Não vendemos caixas.</p>
+        <p>Desenhamos <em>reencontros.</em></p>
+      </div>
+    </div>
+  </section>
+
+  <div class="amanhecer" aria-hidden="true"></div>
+
+  <!-- 3. A tese: a única seção clara, como uma luz acesa -->
+  <section class="claro tese" aria-labelledby="tese-t">
+    <div class="miolo">
+      <span class="zlabel surge">O que acreditamos</span>
+      <h2 id="tese-t" class="surge">O problema das relações não é falta de amor. <em>É falta de presença.</em></h2>
+      <ul class="nomes" aria-label="O que a vida automática faz com as relações">
+        <li class="surge"><small>Casais</small>Dois apaixonados que viraram equipe operacional.</li>
+        <li class="surge"><small>Amigos</small>Amizades que cabem num grupo de mensagens.</li>
+        <li class="surge"><small>Famílias</small>Mesas cheias que não deixam memória.</li>
+      </ul>
+      <p class="depois surge">Nós não achamos isso normal. Por isso desenhamos, com intenção, o tempo que a rotina deixou de oferecer.</p>
+    </div>
+  </section>
+
+  <div class="anoitecer" aria-hidden="true"></div>
+
+  <!-- 4. O objeto: abrir a caixa é cerimônia -->
+  <section class="objeto" aria-labelledby="obj-t">
+    <div class="palco ruido">
+      <div class="quadro q1"><img src="assets/caixa-fechada.jpg" alt="Caixa ZIVIA preta fosca, fechada, com o logo dourado em hot stamping" loading="lazy"></div>
+      <div class="quadro q2"><img src="assets/caixa-entreaberta.jpg" alt="A tampa entreaberta, com luz âmbar saindo de dentro" loading="lazy"></div>
+      <div class="quadro q3"><img src="assets/caixa-por-dentro.jpg" alt="A caixa aberta: compartimentos pretos com envelopes e cartas" loading="lazy"></div>
+      <div class="legendas">
+        <div class="legenda l1">
+          <span class="zlabel">O objeto</span>
+          <h2 id="obj-t">Preta, fosca, <em>silenciosa.</em></h2>
+          <p>O dourado aparece só onde importa. Uma caixa que não precisa dizer muito para ser lembrada.</p>
+        </div>
+        <div class="legenda l2" aria-hidden="true">
+          <h2>Abrir a caixa <em>é cerimônia.</em></h2>
+          <p>Nada aqui é rápido. Nada é casual. A tampa se ergue devagar, e o resto do mundo pode esperar.</p>
+        </div>
+        <div class="legenda l3" aria-hidden="true">
+          <h2>As palavras são <em>convites.</em></h2>
+          <p>Dentro, dez experiências guiadas, uma por vez. Mostramos fragmentos. O resto se descobre vivendo.</p>
+        </div>
+      </div>
+      <div class="progresso" aria-hidden="true"><i></i><i></i><i></i></div>
+    </div>
+  </section>
+
+  <!-- 5. As três imersões -->
+  <section class="imersoes" id="imersoes" aria-labelledby="ime-t">
+    <div class="miolo intro">
+      <div>
+        <span class="zlabel surge">As imersões</span>
+        <h2 id="ime-t" class="surge">Três formas de <em>voltar a sentir.</em></h2>
+      </div>
+      <p class="surge">Cada imersão é uma jornada de dez experiências, desenhada para um tipo de vínculo. Mesma caixa, mesmo silêncio. Encontros diferentes.</p>
+    </div>
+
+    <article class="imersao" aria-labelledby="i1">
+      <div class="foto"><img src="assets/ziviacasais1.webp" alt="Casal à luz de velas, ele de olhos vendados, ela oferecendo um doce" loading="lazy"></div>
+      <div class="corpo">
+        <span class="num">I</span>
+        <h3 id="i1">ZÍVIA <em>A Dois</em></h3>
+        <span class="para-quem">Para casais que preferem química à rotina</span>
+        <p class="frase">Vocês se amam. Mas quando foi a última vez que <em>se sentiram?</em></p>
+        <p class="desc">Dez noites para reacender o que o tempo abafou: riso, toque, conversa, desejo. Não é passatempo. É reencontro.</p>
+        <div class="rodape">
+          <p class="preco"><strong>R$ 389,90</strong>em até 10x sem juros · R$ 329,90 à vista</p>
+          <div class="acoes">
+            <a class="link-fino" href="https://alanlopesofc.github.io/zivia-a-dois/">Entrar na imersão</a>
+            <a class="btn" href="https://checkout.b4you.com.br/V7e5ldAjeZ/3Steps" rel="noopener">Quero a nossa</a>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="imersao" aria-labelledby="i2">
+      <div class="foto"><img src="assets/ziviaamigos1.webp" alt="Amigas em volta de uma mesa escrevendo cartas, com a caixa ZIVIA ao centro" loading="lazy"></div>
+      <div class="corpo">
+        <span class="num">II</span>
+        <h3 id="i2">ZÍVIA <em>Entre Amigos</em></h3>
+        <span class="para-quem">Para amizades que merecem mais que um grupo</span>
+        <p class="frase">Contato não é intimidade. <em>Quando foi a última noite que marcou?</em></p>
+        <p class="desc">Dez experiências para quebrar o automático do rolê e deixar aparecer as histórias, as confidências e as verdades que nunca couberam numa mensagem.</p>
+        <div class="rodape">
+          <p class="preco"><strong>R$ 389,90</strong>em até 10x sem juros · R$ 329,90 à vista</p>
+          <div class="acoes">
+            <a class="btn" href="https://checkout.b4you.com.br/hr9yi7bU-3/3Steps" rel="noopener">Viver com meus amigos</a>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="imersao" aria-labelledby="i3">
+      <div class="foto"><img src="assets/familia.webp" alt="Família reunida no sofá em volta da caixa ZIVIA aberta, sobre a mesa de centro" loading="lazy"></div>
+      <div class="corpo">
+        <span class="num">III</span>
+        <h3 id="i3">ZÍVIA <em>Raízes</em></h3>
+        <span class="para-quem">Para famílias que querem mais que o mesmo endereço</span>
+        <p class="frase">Todo mundo está ali. <em>Mas o que vai ficar de memória?</em></p>
+        <p class="desc">Dez experiências para trocar a pressa por lembrança: menos tela, mais história contada, laços que atravessam gerações.</p>
+        <div class="rodape">
+          <p class="preco"><strong>R$ 389,90</strong>em até 10x sem juros · R$ 329,90 à vista</p>
+          <div class="acoes">
+            <a class="btn" href="https://checkout.b4you.com.br/gtqETpXe_k/3Steps" rel="noopener">Viver com a minha família</a>
+          </div>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <!-- 6. O ritual -->
+  <section class="ritual" id="ritual" aria-labelledby="rit-t">
+    <video src="assets/ritual.mp4" poster="assets/ritual.jpg" muted playsinline webkit-playsinline loop autoplay preload="metadata" disablepictureinpicture aria-hidden="true"></video>
+    <div class="miolo">
+      <ul class="nao" aria-label="O que a ZIVIA não é">
+        <li class="surge">Não é entretenimento.</li>
+        <li class="surge">Não é passatempo.</li>
+        <li class="surge">Não é só um presente.</li>
+      </ul>
+      <h2 id="rit-t" class="surge">É <em>ritual.</em></h2>
+      <div class="passos">
+        <div class="passo surge">
+          <span>Primeiro</span>
+          <h3>Abrir a caixa.</h3>
+          <p>Luz baixa, celular em outro cômodo. Vocês escolhem a noite e abrem o envelope juntos.</p>
+        </div>
+        <div class="passo surge">
+          <span>Depois</span>
+          <h3>Atravessar a experiência.</h3>
+          <p>Cada carta conduz o encontro do começo ao fim. Ninguém precisa improvisar, ninguém precisa se expor.</p>
+        </div>
+        <div class="passo surge">
+          <span>No fim</span>
+          <h3>Sair diferente.</h3>
+          <p>Uma frase que faltava. Um olhar que voltou. Uma história que agora existe.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. Feito para poucos -->
+  <section class="feito" aria-labelledby="feito-t">
+    <div class="miolo">
+      <figure class="surge"><img src="assets/caixa-por-dentro.jpg" alt="Detalhe da caixa ZIVIA aberta, com envelopes e cartas organizados" loading="lazy"></figure>
+      <div>
+        <span class="zlabel surge">Feito com intenção</span>
+        <h2 id="feito-t" class="surge">Menos excesso. <em>Mais significado.</em></h2>
+        <blockquote class="surge">Não porque não podemos fazer mais. Mas porque algumas experiências não foram feitas para multidões.</blockquote>
+        <ul class="fatos">
+          <li class="surge"><strong>10 experiências</strong><span>Uma jornada com começo, meio e reencontro.</span></li>
+          <li class="surge"><strong>15 minutos</strong><span>É o preparo máximo de cada encontro. Tudo vem explicado.</span></li>
+          <li class="surge"><strong>De 40 min a 2 h</strong><span>Por experiência. Sugerimos uma por semana.</span></li>
+          <li class="surge"><strong>Frete grátis</strong><span>Para Sul e Sudeste. Até 10x sem juros.</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. Perguntas -->
+  <section class="perguntas" aria-labelledby="faq-t">
+    <div class="miolo">
+      <div>
+        <span class="zlabel">Antes de abrir</span>
+        <h2 id="faq-t">O que perguntam <em>antes do primeiro envelope.</em></h2>
+      </div>
+      <div>
+        <details><summary>Qual imersão é para mim?</summary><p>Pense em quem você quer reencontrar. A Dois é para o casal, Entre Amigos para o grupo que você não quer perder e Raízes para a família. Cada uma traz experiências diferentes, então dá para viver mais de uma.</p></details>
+        <details><summary>E se eu não gostar de dinâmicas?</summary><p>Não há nada para encenar. As experiências são leves e confortáveis, sem exposição, e foram pensadas também para quem não gosta de dinâmicas.</p></details>
+        <details><summary>O que vem dentro da caixa?</summary><p>Dez experiências guiadas, os materiais de cada uma e as instruções. Mostramos a intenção de cada encontro. O resto vocês descobrem juntos.</p></details>
+        <details><summary>Funciona como presente?</summary><p>Funciona, inclusive de última hora: chega pronta. Só que é um presente para viver, não para guardar na gaveta.</p></details>
+        <details><summary>Quanto tempo leva?</summary><p>De 40 minutos a 2 horas por experiência, com no máximo 15 minutos de preparo. Sugerimos uma por semana.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. Feel again -->
+  <section class="final" aria-labelledby="final-t">
+    <img class="fundo" src="assets/caixa-entreaberta.jpg" alt="" aria-hidden="true" loading="lazy">
+    <div class="conteudo">
+      <h2 id="final-t" class="surge">Quando foi <em>a última vez?</em></h2>
+      <p class="surge">Pessoas não se afastam. Elas apenas deixam de se encontrar.</p>
+      <div class="acoes surge">
+        <a class="btn" href="#imersoes">Escolher minha imersão</a>
+      </div>
+      <img class="assinatura" src="assets/logo-zivia-crop.png" alt="ZIVIA" loading="lazy">
+      <span class="zlabel" style="margin:0">Feel again</span>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <span>© 2026 ZIVIA. Feel Again. Design de Conexões Humanas.</span>
+  <a href="#topo">Voltar ao início</a>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+gsap.registerPlugin(ScrollTrigger);
+ScrollTrigger.clearScrollMemory('manual');
+// "Reduzir movimento" ligado: modo calmo, só opacidade, sem deslocamentos.
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const Y = v => reduce ? 0 : v;
+
+// Links internos rolam sem gravar #âncora no endereço.
+document.addEventListener('click', e => {
+  const a = e.target.closest('a[href^="#"]');
+  if (!a) return;
+  const alvo = a.getAttribute('href') === '#topo' ? document.body : document.querySelector(a.getAttribute('href'));
+  if (!alvo) return;
+  e.preventDefault();
+  alvo.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' });
+});
+addEventListener('pageshow', e => { if (e.persisted) scrollTo(0, 0); });
+
+// Vídeos: tocam só quando visíveis; o primeiro toque libera o autoplay no iPhone em Pouca Energia.
+const videos = [...document.querySelectorAll('video')];
+const io = new IntersectionObserver(es => es.forEach(en => en.isIntersecting ? en.target.play().catch(() => {}) : en.target.pause()), { threshold: .1 });
+videos.forEach(v => io.observe(v));
+addEventListener('touchstart', () => videos.forEach(v => { const r = v.getBoundingClientRect(); if (r.bottom > 0 && r.top < innerHeight) v.play().catch(() => {}); }), { once: true, passive: true });
+
+// Topo ganha fundo depois da primeira dobra.
+const topo = document.querySelector('.topo');
+ScrollTrigger.create({ start: () => innerHeight * .6, end: 'max', toggleClass: { targets: topo, className: 'scrolled' } });
+
+// Hero: entrada lenta, como uma luz que acende.
+gsap.from('.h-in', { opacity: 0, y: Y(28), duration: 1.6, ease: 'power2.out', stagger: .22, delay: .25 });
+gsap.from('.hero video, .hero .poster', { scale: reduce ? 1 : 1.08, duration: 3.2, ease: 'power2.out' });
+if (!reduce) gsap.to('.hero .texto', { yPercent: -18, opacity: 0, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
+
+// Manifesto: cada verso acende quando chega ao centro da tela.
+gsap.utils.toArray('.versos p').forEach(p => {
+  gsap.fromTo(p, { opacity: .14 }, { opacity: 1, ease: 'none', scrollTrigger: { trigger: p, start: 'top 78%', end: 'top 48%', scrub: true } });
+});
+
+// Revelação lenta dos blocos.
+gsap.utils.toArray('.surge').forEach(el => {
+  gsap.to(el, { opacity: 1, y: 0, duration: 1.4, ease: 'power2.out', scrollTrigger: { trigger: el, start: 'top 88%', once: true } });
+  if (!reduce) gsap.set(el, { y: 26 });
+});
+
+// O objeto: fechada → entreaberta → por dentro, com legendas que se trocam.
+const obj = gsap.timeline({ scrollTrigger: { trigger: '.objeto', start: 'top top', end: 'bottom bottom', scrub: 1,
+  onUpdate: s => document.querySelectorAll('.objeto .progresso i').forEach((i, n) => i.style.setProperty('--p', gsap.utils.clamp(0, 1, s.progress * 3 - n))) } });
+obj.to('.q1 img', { scale: reduce ? 1 : 1.06, duration: 1, ease: 'none' }, 0)
+   .to('.l1', { opacity: 0, y: Y(-20), duration: .3 }, .7)
+   .to('.q2', { opacity: 1, duration: .5 }, .8)
+   .fromTo('.l2', { y: Y(20) }, { opacity: 1, y: 0, duration: .3 }, 1)
+   .to('.q2 img', { scale: reduce ? 1 : 1.06, duration: 1, ease: 'none' }, .8)
+   .to('.l2', { opacity: 0, y: Y(-20), duration: .3 }, 1.7)
+   .to('.q3', { opacity: 1, duration: .5 }, 1.8)
+   .fromTo('.l3', { y: Y(20) }, { opacity: 1, y: 0, duration: .3 }, 2)
+   .fromTo('.q3 img', { scale: reduce ? 1 : 1.1 }, { scale: 1, duration: 1, ease: 'none' }, 1.8);
+
+// Imersões: a foto respira devagar e a imersão de baixo recua quando a próxima chega.
+const imersoes = gsap.utils.toArray('.imersao');
+imersoes.forEach((im, i) => {
+  if (!reduce) gsap.fromTo(im.querySelector('.foto img'), { yPercent: -4 }, { yPercent: 4, ease: 'none', scrollTrigger: { trigger: im, start: 'top bottom', end: 'bottom top', scrub: true } });
+  gsap.from(im.querySelectorAll('.corpo > *'), { opacity: 0, y: Y(24), duration: 1.3, ease: 'power2.out', stagger: .1, scrollTrigger: { trigger: im, start: 'top 65%', once: true } });
+  const prox = imersoes[i + 1];
+  // Só no desktop as imersões se empilham; a de baixo escurece e recua quando a próxima chega.
+  if (prox && matchMedia('(min-width: 901px)').matches) gsap.to(im, { '--sombra': .7, scale: reduce ? 1 : .96, ease: 'none', scrollTrigger: { trigger: prox, start: 'top bottom', end: 'top top', scrub: true } });
+});
+</script>
+</body>
+</html>
