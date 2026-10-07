@@ -125,7 +125,7 @@ p { max-width: 34em; }
 .hero .vinheta {
   position: absolute; inset: 0; z-index: 1; pointer-events: none;
   background:
-    linear-gradient(90deg, rgba(15,15,15,.9) 0%, rgba(15,15,15,.55) 38%, transparent 66%),
+    linear-gradient(90deg, var(--z-dark3) 0%, var(--z-dark3) 14%, rgba(15,15,15,.6) 34%, transparent 66%),
     linear-gradient(0deg, rgba(15,15,15,.85) 0%, transparent 34%);
 }
 .hero .texto {
@@ -289,8 +289,8 @@ footer a:hover { color: var(--z-gold-light); }
   .topo nav { display: none; }
   .marca { justify-self: start; }
   .topo .entrar { font-size: .7rem; }
-  .hero video, .hero .poster { left: 0; height: 66%; object-position: 58% 50%; -webkit-mask-image: none; mask-image: none; }
-  .hero .vinheta { background: linear-gradient(0deg, rgba(15,15,15,.95) 0%, rgba(15,15,15,.6) 48%, rgba(15,15,15,.15) 75%); }
+  .hero video, .hero .poster { left: 0; height: 66%; object-position: 58% 50%; -webkit-mask-image: linear-gradient(180deg, #000 55%, transparent 100%); mask-image: linear-gradient(180deg, #000 55%, transparent 100%); }
+  .hero .vinheta { background: linear-gradient(0deg, var(--z-dark3) 0%, var(--z-dark3) 36%, rgba(15,15,15,.55) 52%, rgba(15,15,15,.1) 75%); }
   .hero .rolar { display: none; }
   .hero h1 { font-size: clamp(42px, 11vw, 60px); }
   .hero .acoes { gap: 1.4rem; }
