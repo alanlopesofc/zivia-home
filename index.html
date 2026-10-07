@@ -343,7 +343,7 @@ footer a:hover { color: var(--z-gold-light); }
   <!-- 1. Hero: a caixa repousa sobre a água escura. Nada grita. -->
   <section class="hero ruido" aria-labelledby="hero-t">
     <img class="poster" src="assets/final-wide.jpg" alt="" aria-hidden="true">
-    <video src="assets/final-wide.mp4" poster="assets/final-wide.jpg" muted playsinline webkit-playsinline loop autoplay preload="auto" disablepictureinpicture aria-hidden="true"></video>
+    <video data-anim="assets/hero-m.webp" data-centro src="assets/final-wide.mp4" poster="assets/final-wide.jpg" muted playsinline webkit-playsinline loop autoplay preload="auto" disablepictureinpicture aria-hidden="true"></video>
     <div class="vinheta"></div>
     <div class="texto">
       <span class="zlabel h-in">Design de conexões humanas</span>
@@ -486,7 +486,7 @@ footer a:hover { color: var(--z-gold-light); }
 
   <!-- 6. O ritual -->
   <section class="ritual" id="ritual" aria-labelledby="rit-t">
-    <video src="assets/ritual.mp4" poster="assets/ritual.jpg" muted playsinline webkit-playsinline loop autoplay preload="metadata" disablepictureinpicture aria-hidden="true"></video>
+    <video data-anim="assets/ritual-m.webp" src="assets/ritual.mp4" poster="assets/ritual.jpg" muted playsinline webkit-playsinline loop autoplay preload="metadata" disablepictureinpicture aria-hidden="true"></video>
     <div class="miolo">
       <ul class="nao" aria-label="O que a ZIVIA não é">
         <li class="surge">Não é entretenimento.</li>
@@ -594,17 +594,19 @@ addEventListener('pageshow', e => { if (e.persisted) scrollTo(0, 0); });
 // e daí em diante cada vídeo toca quando aparece e pausa quando sai.
 const videos = [...document.querySelectorAll('video')];
 videos.forEach(v => { v.muted = true; v.defaultMuted = true; v.setAttribute('muted', ''); v.playsInline = true; });
-// Plano B do Modo de Pouca Energia: o iPhone recusa qualquer <video>, mas o Safari (e o Chrome do iPhone,
-// que usa o mesmo motor) toca MP4 dentro de <img> como uma imagem animada, sem botão de play.
-// Se o play for recusado, trocamos o vídeo por essa imagem; se a imagem não carregar, fica o poster.
+// Plano B do Modo de Pouca Energia: o iPhone recusa qualquer <video> e também congela MP4 dentro de <img>.
+// Imagem animada comum (WebP) continua animando. Se o play for recusado, o vídeo vira o WebP de data-anim
+// (recorte leve feito para o celular); sem data-anim, ou no desktop, tenta o MP4 em <img>. Se nada carregar, fica o poster.
 const comoImagem = v => {
   if (v.dataset.trocado) return;
   v.dataset.trocado = '1';
   const img = new Image();
   img.className = 'video-img';
   img.alt = ''; img.setAttribute('aria-hidden', 'true');
+  const celular = innerWidth <= 900 && v.dataset.anim;
+  if (celular && 'centro' in v.dataset) img.style.objectPosition = '50% 50%';
   img.onload = () => { v.replaceWith(img); io.unobserve(v); };
-  img.src = v.currentSrc || v.src;
+  img.src = celular ? v.dataset.anim : (v.currentSrc || v.src);
 };
 const tocar = v => { const t = v.play(); t && t.catch(e => { if (e && e.name === 'NotAllowedError') comoImagem(v); }); };
 if (/[?&]semvideo/.test(location.search)) { const trocar = () => videos.forEach(comoImagem); document.readyState === 'complete' ? trocar() : addEventListener('load', trocar); }
