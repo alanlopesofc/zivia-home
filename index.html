@@ -12,10 +12,10 @@
   if (location.hash) history.replaceState(null, '', location.pathname + location.search);
   window.scrollTo(0, 0);
 </script>
-<link rel="preload" as="image" href="assets/final.jpg">
+<link rel="preload" as="image" href="assets/final-wide.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
 /* Tokens do Design System ZIVIA v1.0 (mesmos da página ZÍVIA A Dois) */
 :root {
@@ -121,11 +121,11 @@ p { max-width: 34em; }
 
 /* 1. Hero: a caixa sobre a água escura */
 .hero { position: relative; height: 100vh; height: 100svh; min-height: 620px; overflow: hidden; background: var(--z-dark3); }
-.hero video, .hero .poster { position: absolute; top: 0; left: 14%; width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 22%); mask-image: linear-gradient(90deg, transparent 0, #000 22%); }
+.hero video, .hero .poster { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 65% 50%; }
 .hero .vinheta {
   position: absolute; inset: 0; z-index: 1; pointer-events: none;
   background:
-    linear-gradient(90deg, var(--z-dark3) 0%, var(--z-dark3) 14%, rgba(15,15,15,.6) 34%, transparent 66%),
+    linear-gradient(90deg, rgba(15,15,15,.88) 0%, rgba(15,15,15,.6) 34%, transparent 60%),
     linear-gradient(0deg, rgba(15,15,15,.85) 0%, transparent 34%);
 }
 .hero .texto {
@@ -145,14 +145,15 @@ p { max-width: 34em; }
 
 /* 2. Manifesto: as linhas acendem com a rolagem */
 .manifesto { position: relative; background: var(--z-dark2); padding: var(--secao) 0; }
-.manifesto .miolo { display: grid; grid-template-columns: 1fr 1.6fr; gap: 4rem; align-items: start; }
-.manifesto .lado { position: sticky; top: 28vh; }
-.manifesto .lado p { color: var(--texto-escuro); margin-top: 1.4rem; font-size: 15px; }
-.versos { font: 400 clamp(30px, 3.5vw, 52px)/1.28 var(--z-serif); }
-.versos p { max-width: none; color: var(--z-light); }
-.versos p + p { margin-top: .5em; }
-.versos .pausa { margin-top: 1.4em; }
-.versos em { font-style: italic; color: var(--z-gold-light); }
+/* Versos em largura total; a palavra acende em dourado ao entrar e volta ao branco depois.
+   Destaques ficam em Cormorant 600 dourado (pedido do Alan, exceção à regra "serifa sempre 400"). */
+.versos { font: 400 clamp(40px, 6.4vw, 104px)/1.08 var(--z-serif); letter-spacing: -.01em; }
+.versos p { max-width: none; color: var(--z-light); text-wrap: balance; }
+.versos p + p { margin-top: .18em; }
+.versos .pausa { margin-top: .9em; }
+.versos strong { font-weight: 600; color: var(--z-gold-light); }
+.versos .w { display: inline-block; }
+.manifesto .assina { margin-top: clamp(48px, 8vh, 96px); color: var(--texto-escuro); font-size: 15px; max-width: 30em; }
 
 /* 3. Tese: a única virada para o claro */
 .amanhecer { height: clamp(72px, 12vh, 140px); background: linear-gradient(var(--z-dark2), var(--z-muted)); }
@@ -289,19 +290,18 @@ footer a:hover { color: var(--z-gold-light); }
   .topo nav { display: none; }
   .marca { justify-self: start; }
   .topo .entrar { font-size: .7rem; }
-  .hero video, .hero .poster { left: 0; height: 66%; object-position: 58% 50%; -webkit-mask-image: linear-gradient(180deg, #000 55%, transparent 100%); mask-image: linear-gradient(180deg, #000 55%, transparent 100%); }
+  .hero video, .hero .poster { height: 66%; object-position: 70% 50%; -webkit-mask-image: linear-gradient(180deg, #000 55%, transparent 100%); mask-image: linear-gradient(180deg, #000 55%, transparent 100%); }
   .hero .vinheta { background: linear-gradient(0deg, var(--z-dark3) 0%, var(--z-dark3) 36%, rgba(15,15,15,.55) 52%, rgba(15,15,15,.1) 75%); }
   .hero .rolar { display: none; }
   .hero h1 { font-size: clamp(42px, 11vw, 60px); }
   .hero .acoes { gap: 1.4rem; }
-  .manifesto .miolo, .imersoes .intro, .feito .miolo, .perguntas .miolo { grid-template-columns: 1fr; gap: 2.4rem; }
-  .manifesto .lado { position: static; }
-  .versos { font-size: clamp(27px, 7.4vw, 36px); }
+  .imersoes .intro, .feito .miolo, .perguntas .miolo { grid-template-columns: 1fr; gap: 2.4rem; }
+  .versos { font-size: clamp(36px, 10.6vw, 52px); line-height: 1.1; }
   .tese .nomes li { min-width: 100%; padding: 1.4rem 0; }
   .tese .nomes li + li { border-left: 0; border-top: 1px solid var(--linha-clara); }
   .objeto { height: 300vh; }
   .objeto .progresso { display: none; }
-  .imersao { position: relative; grid-template-columns: 1fr; grid-template-rows: 42vh auto; grid-template-rows: 42svh auto; }
+  .imersao { grid-template-columns: 1fr; grid-template-rows: 40vh auto; grid-template-rows: 40svh auto; }
   .imersao .foto::after { background: linear-gradient(0deg, rgba(26,25,25,1) 0%, transparent 45%); }
   .imersao .corpo { padding: 0 var(--gutter) 56px; justify-content: flex-start; }
   .imersao h3 { font-size: clamp(38px, 10vw, 52px); }
@@ -334,8 +334,8 @@ footer a:hover { color: var(--z-gold-light); }
 
   <!-- 1. Hero: a caixa repousa sobre a água escura. Nada grita. -->
   <section class="hero ruido" aria-labelledby="hero-t">
-    <img class="poster" src="assets/final.jpg" alt="" aria-hidden="true">
-    <video src="assets/final.mp4" poster="assets/final.jpg" muted playsinline webkit-playsinline loop autoplay preload="auto" disablepictureinpicture aria-hidden="true"></video>
+    <img class="poster" src="assets/final-wide.jpg" alt="" aria-hidden="true">
+    <video src="assets/final-wide.mp4" poster="assets/final-wide.jpg" muted playsinline webkit-playsinline loop autoplay preload="auto" disablepictureinpicture aria-hidden="true"></video>
     <div class="vinheta"></div>
     <div class="texto">
       <span class="zlabel h-in">Design de conexões humanas</span>
@@ -352,23 +352,21 @@ footer a:hover { color: var(--z-gold-light); }
   <!-- 2. Manifesto oficial, em fragmentos que acendem -->
   <section class="manifesto" id="manifesto" aria-labelledby="man-t">
     <div class="miolo">
-      <div class="lado">
-        <span class="zlabel">Manifesto</span>
-        <h2 id="man-t" class="sr-only">Manifesto ZIVIA</h2>
-        <p>Nós começamos a reparar nos encontros que aconteciam sem encontro. A ZIVIA nasceu daí.</p>
-      </div>
+      <span class="zlabel">Manifesto</span>
+      <h2 id="man-t" class="sr-only">Manifesto ZIVIA</h2>
       <div class="versos">
-        <p>O mundo ficou barulhento demais.</p>
-        <p>Estamos juntos, mas distantes.</p>
-        <p>Conectados, mas ausentes.</p>
+        <p>O mundo ficou <strong>barulhento</strong> demais.</p>
+        <p>Estamos juntos, mas <strong>distantes.</strong></p>
+        <p>Conectados, mas <strong>ausentes.</strong></p>
         <p class="pausa">O tempo virou agenda.</p>
         <p>O afeto virou hábito.</p>
-        <p>O encontro virou exceção.</p>
+        <p>O encontro virou <strong>exceção.</strong></p>
         <p class="pausa">Não criamos produtos.</p>
-        <p>Criamos <em>pausas conscientes.</em></p>
+        <p>Criamos <strong>pausas conscientes.</strong></p>
         <p>Não vendemos caixas.</p>
-        <p>Desenhamos <em>reencontros.</em></p>
+        <p>Desenhamos <strong>reencontros.</strong></p>
       </div>
+      <p class="assina">Nós começamos a reparar nos encontros que aconteciam sem encontro. A ZIVIA nasceu daí.</p>
     </div>
   </section>
 
@@ -598,9 +596,30 @@ gsap.from('.h-in', { opacity: 0, y: Y(28), duration: 1.6, ease: 'power2.out', st
 gsap.from('.hero video, .hero .poster', { scale: reduce ? 1 : 1.08, duration: 3.2, ease: 'power2.out' });
 if (!reduce) gsap.to('.hero .texto', { yPercent: -18, opacity: 0, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
 
-// Manifesto: cada verso acende quando chega ao centro da tela.
+// Manifesto: cada verso é quebrado em palavras. Ao entrar na tela, a palavra surge e acende em dourado;
+// logo depois volta ao branco. As palavras em destaque (strong) ficam douradas e em negrito.
+const OURO = '#F2C063', BRANCO = '#FFFFFF';
 gsap.utils.toArray('.versos p').forEach(p => {
-  gsap.fromTo(p, { opacity: .14 }, { opacity: 1, ease: 'none', scrollTrigger: { trigger: p, start: 'top 78%', end: 'top 48%', scrub: true } });
+  const partes = [...p.childNodes];
+  p.textContent = '';
+  partes.forEach(no => {
+    const destaque = no.nodeName === 'STRONG';
+    const alvo = destaque ? p.appendChild(document.createElement('strong')) : p;
+    no.textContent.split(/(\s+)/).forEach(t => {
+      if (!t) return;
+      if (/^\s+$/.test(t)) { alvo.appendChild(document.createTextNode(t)); return; }
+      const w = document.createElement('span');
+      w.className = 'w' + (destaque ? ' d' : '');
+      w.textContent = t;
+      alvo.appendChild(w);
+    });
+  });
+  if (reduce) return;
+  const ws = p.querySelectorAll('.w'), comuns = p.querySelectorAll('.w:not(.d)');
+  gsap.set(ws, { opacity: .12, y: '.12em' });
+  const tl = gsap.timeline({ scrollTrigger: { trigger: p, start: 'top 88%', end: 'top 42%', scrub: .6 } });
+  tl.to(ws, { opacity: 1, y: 0, color: OURO, duration: .3, stagger: .1, ease: 'power1.out' }, 0)
+    .to(comuns, { color: BRANCO, duration: .3, stagger: .1, ease: 'none' }, .32);
 });
 
 // Revelação lenta dos blocos.
@@ -622,14 +641,21 @@ obj.to('.q1 img', { scale: reduce ? 1 : 1.06, duration: 1, ease: 'none' }, 0)
    .fromTo('.l3', { y: Y(20) }, { opacity: 1, y: 0, duration: .3 }, 2)
    .fromTo('.q3 img', { scale: reduce ? 1 : 1.1 }, { scale: 1, duration: 1, ease: 'none' }, 1.8);
 
+// Imersões empilhadas: um painel mais alto que a tela rola até mostrar o rodapé e só então gruda,
+// para o botão nunca ficar escondido sob o painel seguinte.
+const ajustaTopo = () => document.querySelectorAll('.imersao').forEach(im => { im.style.top = Math.min(0, innerHeight - im.offsetHeight) + 'px'; });
+ajustaTopo();
+addEventListener('resize', ajustaTopo);
+document.fonts && document.fonts.ready.then(() => { ajustaTopo(); ScrollTrigger.refresh(); });
+
 // Imersões: a foto respira devagar e a imersão de baixo recua quando a próxima chega.
 const imersoes = gsap.utils.toArray('.imersao');
 imersoes.forEach((im, i) => {
   if (!reduce) gsap.fromTo(im.querySelector('.foto img'), { yPercent: -4 }, { yPercent: 4, ease: 'none', scrollTrigger: { trigger: im, start: 'top bottom', end: 'bottom top', scrub: true } });
   gsap.from(im.querySelectorAll('.corpo > *'), { opacity: 0, y: Y(24), duration: 1.3, ease: 'power2.out', stagger: .1, scrollTrigger: { trigger: im, start: 'top 65%', once: true } });
   const prox = imersoes[i + 1];
-  // Só no desktop as imersões se empilham; a de baixo escurece e recua quando a próxima chega.
-  if (prox && matchMedia('(min-width: 901px)').matches) gsap.to(im, { '--sombra': .7, scale: reduce ? 1 : .96, ease: 'none', scrollTrigger: { trigger: prox, start: 'top bottom', end: 'top top', scrub: true } });
+  // A de baixo escurece e recua quando a próxima chega (desktop e celular).
+  if (prox) gsap.to(im, { '--sombra': .7, scale: reduce ? 1 : .96, ease: 'none', scrollTrigger: { trigger: prox, start: 'top bottom', end: 'top top', scrub: true } });
 });
 </script>
 </body>
