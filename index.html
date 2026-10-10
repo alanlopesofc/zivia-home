@@ -38,7 +38,7 @@
   --linha-clara: rgba(38,37,38,.14);
   --linha-escura: rgba(255,255,255,.1);
 
-  --z-transition: .3s ease;
+  --z-transition: .3s cubic-bezier(.25, 1, .5, 1);
   --lento: cubic-bezier(.22,.61,.36,1);
   --gutter: clamp(20px, 5vw, 64px);
   --container: 1280px;
@@ -104,17 +104,24 @@ p { max-width: 34em; }
   display: inline-block; padding: 1.15rem 2.4rem; border-radius: 2px;
   background: var(--z-gold); color: var(--z-dark); text-decoration: none;
   font: 700 .78rem/1 var(--z-sans); letter-spacing: .22em; text-transform: uppercase;
-  transition: background var(--z-transition), transform var(--z-transition), box-shadow var(--z-transition);
+  transition: background var(--z-transition), color var(--z-transition), border-color var(--z-transition),
+    transform .2s cubic-bezier(.25, 1, .5, 1), box-shadow .5s var(--lento);
 }
-.btn:hover { background: var(--z-gold-light); transform: translateY(-1px); box-shadow: 0 18px 40px -16px rgba(191,146,63,.55); }
+/* Hover só com mouse (no toque ele "gruda"); ao pressionar, o botão cede de leve. */
+@media (hover: hover) {
+  .btn:hover { background: var(--z-gold-light); box-shadow: 0 18px 40px -16px rgba(191,146,63,.55); }
+}
+.btn:active { transform: scale(.98); }
 .btn.outline { background: transparent; color: var(--z-light); border: 1px solid rgba(242,192,99,.5); font-weight: 500; }
-.btn.outline:hover { background: var(--z-gold-light); color: var(--z-dark); border-color: var(--z-gold-light); box-shadow: none; }
+@media (hover: hover) {
+  .btn.outline:hover { background: var(--z-gold-light); color: var(--z-dark); border-color: var(--z-gold-light); box-shadow: none; }
+}
 .link-fino {
   display: inline-flex; align-items: center; gap: .8rem; text-decoration: none;
   font: 500 .78rem/1 var(--z-sans); letter-spacing: .22em; text-transform: uppercase; color: var(--z-gold-light);
 }
-.link-fino::after { content: ""; width: 2.2rem; height: 1px; background: currentColor; transition: width .5s var(--lento); }
-.link-fino:hover::after { width: 3.4rem; }
+.link-fino::after { content: ""; width: 3.4rem; height: 1px; background: currentColor; transform: scaleX(.65); transform-origin: left; transition: transform .5s var(--lento); }
+.link-fino:hover::after { transform: scaleX(1); }
 
 .ruido { position: relative; }
 .ruido::after {
@@ -128,22 +135,25 @@ p { max-width: 34em; }
 .hero .vinheta {
   position: absolute; inset: 0; z-index: 1; pointer-events: none;
   background:
-    linear-gradient(90deg, rgba(15,15,15,.88) 0%, rgba(15,15,15,.6) 34%, transparent 60%),
-    linear-gradient(0deg, rgba(15,15,15,.85) 0%, transparent 34%);
+    /* Sombra só onde o texto mora (canto inferior esquerdo); o resto do vídeo fica limpo. */
+    radial-gradient(120% 85% at 0% 100%, rgba(15,15,15,.82) 0%, rgba(15,15,15,.45) 38%, transparent 62%),
+    linear-gradient(0deg, rgba(15,15,15,.6) 0%, transparent 26%);
 }
 .hero .texto {
-  position: absolute; z-index: 2; left: 0; right: 0; bottom: clamp(56px, 12vh, 120px);
+  position: absolute; z-index: 2; left: 0; right: 0; bottom: clamp(44px, 9vh, 96px);
   max-width: var(--container); margin: 0 auto; padding: 0 var(--gutter);
 }
-.hero h1 { max-width: 9.5em; }
-.hero .lede { margin-top: 1.8rem; max-width: 25em; }
-.hero .acoes { margin-top: 2.6rem; display: flex; align-items: center; gap: 2rem; flex-wrap: wrap; }
+/* Bloco compacto no canto: título em 3 linhas curtas (o dourado segue na linha do branco), apoio em 2, caixa livre. */
+.hero h1 { font-size: clamp(38px, 4.1vw, 66px); line-height: 1.06; max-width: 9.6em; }
+.hero .zlabel { margin-bottom: 1.2rem; }
+.hero .lede { margin-top: 1.2rem; max-width: 30em; font-size: clamp(17px, 1.25vw, 20px); line-height: 1.6; }
+.hero .acoes { margin-top: 1.8rem; display: flex; align-items: center; gap: 2rem; flex-wrap: wrap; }
 .hero .rolar {
   position: absolute; z-index: 2; right: var(--gutter); bottom: clamp(56px, 12vh, 120px);
   writing-mode: vertical-rl; font: 500 .68rem/1 var(--z-sans); letter-spacing: .4em; text-transform: uppercase; color: rgba(255,255,255,.5);
   display: flex; align-items: center; gap: 1rem;
 }
-.hero .rolar::after { content: ""; width: 1px; height: 64px; background: linear-gradient(var(--z-gold), transparent); animation: gota 2.8s var(--lento) infinite; transform-origin: top; }
+.hero .rolar::after { content: ""; width: 1px; height: 64px; background: linear-gradient(var(--z-gold), transparent); animation: gota 2.8s var(--lento) 2.4s 3 backwards; transform-origin: top; opacity: 0; }
 @keyframes gota { 0% { transform: scaleY(0); } 50% { transform: scaleY(1); } 100% { transform: scaleY(1); opacity: 0; } }
 
 /* 2. Manifesto: as linhas acendem com a rolagem */
@@ -294,14 +304,14 @@ footer a:hover { color: var(--z-gold-light); }
   .topo nav { display: none; }
   .marca { justify-self: start; }
   .topo .entrar { font-size: .7rem; }
-  .hero video, .hero .poster, .hero .video-img { height: 54%; object-position: 72% 50%; -webkit-mask-image: linear-gradient(180deg, #000 55%, transparent 100%); mask-image: linear-gradient(180deg, #000 55%, transparent 100%); }
-  .hero .vinheta { background: linear-gradient(0deg, var(--z-dark3) 0%, var(--z-dark3) 48%, rgba(15,15,15,.4) 58%, transparent 72%); }
+  .hero video, .hero .poster, .hero .video-img { height: 60%; object-position: 72% 50%; -webkit-mask-image: linear-gradient(180deg, #000 55%, transparent 100%); mask-image: linear-gradient(180deg, #000 55%, transparent 100%); }
+  .hero .vinheta { background: linear-gradient(0deg, var(--z-dark3) 0%, var(--z-dark3) 40%, rgba(15,15,15,.4) 52%, transparent 66%); }
   .hero .texto { bottom: 36px; }
-  .hero .lede { margin-top: 1.1rem; font-size: 18px; }
-  .hero .acoes { margin-top: 1.6rem; }
-  .hero .zlabel { margin-bottom: 1.1rem; }
+  .hero .lede { margin-top: .9rem; font-size: 16.5px; line-height: 1.55; }
+  .hero .acoes { margin-top: 1.3rem; }
+  .hero .zlabel { margin-bottom: .9rem; }
   .hero .rolar { display: none; }
-  .hero h1 { font-size: clamp(42px, 11vw, 60px); }
+  .hero h1 { font-size: clamp(32px, 8.6vw, 42px); max-width: 9.6em; }
   .hero .acoes { gap: 1.4rem; }
   .imersoes .intro, .feito .miolo, .perguntas .miolo { grid-template-columns: 1fr; gap: 2.4rem; }
   .versos { font-size: clamp(36px, 10.6vw, 52px); line-height: 1.1; }
@@ -322,6 +332,11 @@ footer a:hover { color: var(--z-gold-light); }
   .feito .fatos li:nth-child(n) { padding: 1.2rem 0; border-left: 0; }
   .zlabel { font-size: .72rem; }
   .btn { font-size: .8rem; padding: 1.15rem 1.6rem; white-space: nowrap; }
+}
+/* Celulares estreitos (iPhone SE): etiqueta numa linha só e apoio um pouco menor. */
+@media (max-width: 380px) {
+  .hero .zlabel { letter-spacing: .2em; font-size: .62rem; white-space: nowrap; }
+  .hero .lede { font-size: 15.5px; }
 }
 </style>
 </head>
@@ -627,10 +642,17 @@ const liberar = () => {
 const topo = document.querySelector('.topo');
 ScrollTrigger.create({ start: () => innerHeight * .6, end: 'max', toggleClass: { targets: topo, className: 'scrolled' } });
 
-// Hero: entrada lenta, como uma luz que acende.
-gsap.from('.h-in', { opacity: 0, y: Y(28), duration: 1.6, ease: 'power2.out', stagger: .22, delay: .25 });
-gsap.from('.hero video, .hero .poster', { scale: reduce ? 1 : 1.08, duration: 3.2, ease: 'power2.out' });
-if (!reduce) gsap.to('.hero .texto', { yPercent: -18, opacity: 0, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
+// Hero: o vídeo aparece sozinho por um instante; depois o texto acende devagar, de baixo para cima.
+gsap.from('.hero video, .hero .poster', { scale: reduce ? 1 : 1.05, duration: 3.4, ease: 'expo.out' });
+gsap.from('.h-in', {
+  opacity: 0, y: Y(16), filter: reduce ? 'none' : 'blur(6px)',
+  duration: 1.5, ease: 'expo.out', stagger: .16, delay: 1.1, clearProps: 'filter',
+});
+// Ao rolar, o texto sai cedo (na primeira metade) e deixa o vídeo inteiro para o fim do hero.
+gsap.to('.hero .texto', {
+  opacity: 0, y: Y(-24), ease: 'power1.in',
+  scrollTrigger: { trigger: '.hero', start: 'top top', end: '45% top', scrub: true },
+});
 
 // Manifesto: cada verso é quebrado em palavras. Ao entrar na tela, a palavra surge e acende em dourado;
 // logo depois volta ao branco. As palavras em destaque (strong) ficam douradas e em negrito.
