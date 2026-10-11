@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
 <title>ZIVIA | Design de Conexões Humanas</title>
-<meta name="description" content="O extraordinário não está no que temos. Está no que vivemos. A ZIVIA cria experiências guiadas para viver a dois, com espaço para presença, conversa e descoberta.">
+<meta name="description" content="O extraordinário não está no que temos. Está no que vivemos. A ZIVIA cria experiências guiadas para viver melhor o tempo junto: a dois e em família.">
 <meta name="theme-color" content="#211D1A">
 <script>
   if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
@@ -135,6 +135,27 @@ figure { margin: 0; }
 .pilares h3 { margin-bottom: .6rem; }
 .pilares p { color: var(--texto-2); }
 
+/* 2b. Vínculos */
+.vinculos .cabeca { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(32px, 5vw, 80px); align-items: end; }
+.vinculos .cartoes { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(20px, 3vw, 40px); margin-top: clamp(40px, 5vw, 64px); }
+.vinculo .midia { margin-bottom: 1.4rem; }
+.vinculo .estado { display: block; font: 600 .74rem/1.3 var(--sans); letter-spacing: .14em; text-transform: uppercase; color: var(--zivia-bronze); margin-bottom: .6rem; }
+.vinculo h3 { margin-bottom: .6rem; }
+.vinculo p { color: var(--texto-2); max-width: 32em; }
+.vinculo .link { display: inline-block; margin-top: 1.2rem; }
+.vinculos .legenda { margin-top: 1.4rem; }
+
+/* 2c. Momentos: faixa editorial de cenas */
+.momentos { padding: clamp(56px, 7vw, 96px) 0 var(--secao); }
+.momentos .faixa { display: grid; grid-template-columns: 1.25fr .8fr .8fr 1.25fr; gap: 14px; padding: 0 clamp(14px, 2vw, 28px); align-items: center; }
+.momentos .m1 .midia, .momentos .m4 .midia { aspect-ratio: 4 / 3; }
+.momentos .m2 .midia, .momentos .m3 .midia { aspect-ratio: 4 / 5; }
+.momentos .m2 { transform: translateY(-6%); }
+.momentos .m3 { transform: translateY(6%); }
+.momentos .frase { margin-top: clamp(40px, 5vw, 64px); text-align: center; font: 500 clamp(30px, 3.4vw, 46px)/1.15 var(--serif); }
+.momentos .frase em { font-style: italic; color: var(--zivia-bronze); }
+.momentos .legenda { text-align: center; }
+
 /* 3. Manifesto: as frases acendem com a rolagem, palavra por palavra */
 .manifesto .versos { margin-top: 1.2rem; font: 500 clamp(36px, 5.4vw, 80px)/1.08 var(--serif); letter-spacing: -.01em; }
 .manifesto .versos p { color: var(--claro); margin-top: .5em; max-width: 15em; }
@@ -196,7 +217,9 @@ footer img { width: 96px; height: auto; }
 
 @media (max-width: 1023px) {
   .topo nav a:not(.btn) { display: none; }
-  .duas, .objeto .cabeca { grid-template-columns: 1fr; }
+  .duas, .objeto .cabeca, .vinculos .cabeca { grid-template-columns: 1fr; }
+  .momentos .faixa { grid-template-columns: 1fr 1fr; }
+  .momentos .m2, .momentos .m3 { transform: none; }
   .pilares { grid-template-columns: 1fr; }
 }
 @media (max-width: 899px) {
@@ -214,6 +237,8 @@ footer img { width: 96px; height: auto; }
   body { font-size: 16px; }
   .criamos .par { grid-template-columns: 1.2fr .8fr; gap: 10px; }
   .objeto .trio { grid-template-columns: 1fr; }
+  .vinculos .cartoes { grid-template-columns: 1fr; }
+  .vinculo .midia.v45 { aspect-ratio: 4 / 3; }
   .objeto .trio .midia { aspect-ratio: 3 / 2; }
   .topo .btn { padding: .5rem .9rem; font-size: 13px; min-height: 40px; }
   .final { min-height: 92vh; }
@@ -237,6 +262,7 @@ footer img { width: 96px; height: auto; }
     </a>
     <nav aria-label="Principal">
       <a href="#marca">A marca</a>
+      <a href="#vinculos">Para quem</a>
       <a href="#criamos">O que criamos</a>
       <a href="#edicao">Primeira edição</a>
       <a href="#perguntas">Perguntas</a>
@@ -256,7 +282,7 @@ footer img { width: 96px; height: auto; }
       <div class="miolo">
         <span class="eyebrow h-in">Design de conexões humanas</span>
         <h1 id="hero-t" class="h-in">O extraordinário não está no que temos. <em>Está no que vivemos.</em></h1>
-        <p class="intro h-in">A ZIVIA cria experiências guiadas para viver a dois, com espaço para presença, conversa e descoberta. A primeira edição é para casais.</p>
+        <p class="intro h-in">A ZIVIA cria experiências guiadas para quem quer viver melhor o tempo junto: a dois e em família. A primeira edição é para casais.</p>
         <div class="acoes h-in">
           <a class="btn" href="https://alanlopesofc.github.io/zivia-a-dois/">Conhecer a edição</a>
           <a class="link" href="#marca">O que defendemos</a>
@@ -287,6 +313,46 @@ footer img { width: 96px; height: auto; }
     </div>
   </section>
 
+  <!-- 2b. Para os vínculos que importam: casal e família (a venda desta fase é a edição para casais) -->
+  <section class="secao marfim vinculos" id="vinculos" aria-labelledby="vin-t">
+    <div class="miolo">
+      <div class="cabeca">
+        <div>
+          <span class="eyebrow surge">Para quem</span>
+          <h2 id="vin-t" class="surge">Para os vínculos que <em>importam.</em></h2>
+        </div>
+        <p class="intro surge">Para quem divide a vida: o casal que quer se encontrar melhor e a família que quer transformar a mesma casa em memória.</p>
+      </div>
+      <div class="cartoes">
+        <article class="vinculo surge">
+          <div class="midia v45 revela"><img src="assets/casal-risos.jpg" alt="Casal sentado no chão da sala, rindo do que ela acabou de ler num cartão; a caixa aberta ao lado" loading="lazy" style="object-position:45% 18%"></div>
+          <span class="estado">Primeira edição · disponível</span>
+          <h3>A dois</h3>
+          <p>Dez experiências guiadas para reservar um tempo a dois, abrir novas conversas e descobrir outras formas de estar juntos.</p>
+          <a class="link" href="https://alanlopesofc.github.io/zivia-a-dois/">Conhecer a edição para casais</a>
+        </article>
+        <article class="vinculo surge">
+          <div class="midia v45 revela"><img src="assets/familia-geracoes.jpg" alt="Avó, filha e neto no sofá: a avó mostra uma foto antiga e conta uma história; a caixa aberta na mesa de centro" loading="lazy"></div>
+          <span class="estado">Próximas edições</span>
+          <h3>Em família</h3>
+          <p>Experiências para quem divide a mesma casa e a mesma história, entre gerações: menos pressa, mais história contada à mesa.</p>
+        </article>
+      </div>
+      <span class="legenda surge">Cenas ilustrativas.</span>
+    </div>
+  </section>
+
+  <!-- 2c. Tempo comum: cenas do dia a dia, a dois e em família -->
+  <section class="momentos" aria-label="Momentos">
+    <div class="faixa">
+      <figure class="m1 surge"><div class="midia revela"><img src="assets/familia-mesa.jpg" alt="Família à mesa da cozinha à noite; a filha lê um cartão da caixa e todos riem" loading="lazy"></div></figure>
+      <figure class="m2 surge"><div class="midia revela"><video data-anim="assets/casal-sala-m.webp" src="assets/casal-sala.mp4" poster="assets/casal-sala.jpg" muted playsinline webkit-playsinline loop autoplay preload="metadata" disablepictureinpicture aria-hidden="true"></video></div></figure>
+      <figure class="m3 surge"><div class="midia revela"><img src="assets/maos-geracoes.jpg" alt="A mão de uma criança e a de uma pessoa idosa seguram juntas um cartão acima da caixa aberta" loading="lazy"></div></figure>
+      <figure class="m4 surge"><div class="midia revela"><img src="assets/casal-cozinha.jpg" alt="Casal cozinhando junto num sábado de manhã, rindo; a caixa fechada no balcão" loading="lazy"></div></figure>
+    </div>
+    <div class="miolo"><p class="frase surge">Tempo comum. <em>Conexão real.</em></p><span class="legenda surge">Cenas ilustrativas.</span></div>
+  </section>
+
   <!-- 3. Manifesto: o arco da V3 (reconhecer, confrontar, possibilitar, convidar) -->
   <section class="secao escuro manifesto" id="manifesto" aria-labelledby="man-t">
     <div class="miolo">
@@ -305,17 +371,17 @@ footer img { width: 96px; height: auto; }
     <div class="miolo duas">
       <div>
         <span class="eyebrow surge">O que criamos</span>
-        <h2 id="cri-t" class="surge">Dez experiências. Um tempo que <em>volta a ser de vocês.</em></h2>
-        <p class="intro surge" style="margin-top:1.4rem">Uma caixa física com experiências guiadas para viver a dois. Cada proposta abre espaço para uma conversa, um gesto ou uma descoberta. O que acontece em cada uma fica para a abertura.</p>
+        <h2 id="cri-t" class="surge">Experiências guiadas. Um tempo que <em>volta a ser de vocês.</em></h2>
+        <p class="intro surge" style="margin-top:1.4rem">Cada edição da ZIVIA é uma caixa física com experiências guiadas para viver junto. Cada proposta abre espaço para uma conversa, um gesto ou uma descoberta. O que acontece em cada uma fica para a abertura.</p>
         <ul class="lista surge">
           <li>Experiências guiadas, sem precisar improvisar.</li>
-          <li>No ritmo de vocês, com liberdade para adaptar ou pausar.</li>
+          <li>No ritmo de cada casa, com liberdade para adaptar ou pausar.</li>
           <li>Uma caixa pensada para que o encontro não fique para depois.</li>
         </ul>
       </div>
       <figure class="surge">
         <div class="par">
-          <div class="midia v45 revela"><video data-anim="assets/casal-sala-m.webp" src="assets/casal-sala.mp4" poster="assets/casal-sala.jpg" muted playsinline webkit-playsinline loop autoplay preload="metadata" disablepictureinpicture aria-hidden="true"></video></div>
+          <div class="midia v45 revela"><img src="assets/familia-mesa.jpg" alt="Família à mesa da cozinha à noite, lendo juntos um cartão da caixa" loading="lazy" style="object-position:55% 50%"></div>
           <div class="midia v45 revela"><img src="assets/maos-envelope.jpg" alt="Duas mãos tiram juntas um envelope da caixa aberta, sobre uma mesa com toalha de linho" loading="lazy"></div>
         </div>
         <figcaption class="legenda">Cenas ilustrativas.</figcaption>
@@ -347,7 +413,7 @@ footer img { width: 96px; height: auto; }
       <div class="duas">
         <p class="numero surge" aria-hidden="true">100<small>caixas comerciais · edição para casais</small></p>
         <div>
-          <span class="eyebrow surge">Primeira edição</span>
+          <span class="eyebrow surge">Primeira edição · para casais</span>
           <h2 id="ed-t" class="surge">Vocês ainda têm <em>primeiras vezes</em> pela frente.</h2>
           <p class="intro surge" style="margin-top:1.4rem">A edição inaugural da ZIVIA é para casais: 100 caixas comerciais nesta configuração de tamanho, itens e concepção, criadas para inaugurar essa experiência.</p>
           <div class="acoes surge"><a class="btn" href="https://alanlopesofc.github.io/zivia-a-dois/">Conhecer a edição para casais</a></div>
@@ -368,9 +434,11 @@ footer img { width: 96px; height: auto; }
         <h2 id="faq-t" class="surge">O que ainda vale saber.</h2>
       </div>
       <div class="faq surge">
-        <details><summary>O que é a ZIVIA?</summary><p>A ZIVIA cria experiências guiadas para favorecer presença, conversa e descoberta. A primeira edição é para casais, por meio de uma caixa física com dez experiências.</p></details>
-        <details><summary>O que vem na caixa?</summary><p>A edição reúne dez experiências guiadas. As propostas específicas ficam preservadas para a descoberta durante o uso.</p></details>
-        <details><summary>É indicada só para casais em dificuldade?</summary><p>Não. A proposta é criar um tempo intencional a dois. A ZIVIA não é um serviço de terapia e não promete resolver problemas do relacionamento.</p></details>
+        <details><summary>O que é a ZIVIA?</summary><p>A ZIVIA cria experiências guiadas para favorecer presença, conversa e memória afetiva entre pessoas que dividem a vida. Cada edição é uma caixa física com experiências para viver junto.</p></details>
+        <details><summary>Para quem é?</summary><p>Para vínculos que importam: casais e famílias. A edição disponível agora, a primeira, é para casais.</p></details>
+        <details><summary>Existe edição para famílias?</summary><p>Experiências para famílias fazem parte do que a ZIVIA desenha. Por enquanto, a edição disponível é a para casais.</p></details>
+        <details><summary>O que vem na edição para casais?</summary><p>Dez experiências guiadas. As propostas específicas ficam preservadas para a descoberta durante o uso.</p></details>
+        <details><summary>É para quem está passando por dificuldades?</summary><p>Não é esse o foco. A proposta é criar um tempo intencional juntos. A ZIVIA não é um serviço de terapia e não promete resolver problemas de relacionamento.</p></details>
         <details><summary>Onde vejo preço e condições?</summary><p>Na página da edição para casais, junto com o que vem na caixa e o link de compra.</p></details>
       </div>
     </div>
@@ -383,7 +451,7 @@ footer img { width: 96px; height: auto; }
     </div>
     <div class="miolo">
       <h2 id="fim-t" class="surge">Qual foi a última vez que vocês fizeram algo juntos <em>pela primeira vez?</em></h2>
-      <p class="intro surge">Conheça a edição para casais e escolham um momento para viver juntos.</p>
+      <p class="intro surge">A primeira edição é para casais. Conheça e escolham um momento para viver juntos.</p>
       <div class="acoes surge"><a class="btn" href="https://alanlopesofc.github.io/zivia-a-dois/">Conhecer a edição</a></div>
       <span class="legenda surge">Cena ilustrativa.</span>
     </div>
